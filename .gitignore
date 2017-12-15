@@ -1,0 +1,5 @@
+config
+data
+tables
+.DS_Store
+.ipynb_checkpoints
