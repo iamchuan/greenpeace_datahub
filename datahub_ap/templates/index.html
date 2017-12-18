@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div id="map_cn" style="height: 100%"></div>
+
+    <script type="text/javascript">
+
+        var map = L.map('map_cn').setView([38.88, 114.47], 4);
+        var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        });
+
+        {% for row in map_data %}
+            L.marker([{{ row.lat }}, {{ row.lng }}]).addTo(map).bindPopup("<strong>{{ row.city }}: {{ row.pm25|round|int }}</strong>").openPopup();
+        {% endfor %}
+        map.addLayer(layer);
+
+    </script>
+
+{% endblock %}

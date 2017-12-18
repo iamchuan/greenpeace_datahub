@@ -3,3 +3,7 @@ data
 tables
 .DS_Store
 .ipynb_checkpoints
+*.csv
+*/.idea
+*/__pycache__
+*.pyc

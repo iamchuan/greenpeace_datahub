@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Air Pollution</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+            crossorigin=""></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Air Pollution Demo</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Explore</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Data Download</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+</body>
+</html>
