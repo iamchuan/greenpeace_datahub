@@ -8,17 +8,27 @@ html, body {
 }
 
 #controls {
-  /* Appearance */
-  background-color: white;
-  padding: 0 20px 20px 20px;
-  cursor: move;
-  /* Fade out while not hovering */
-  opacity: 0.65;
-  zoom: 0.9;
-  transition: opacity 500ms 1s;
+    /* Position */
+    top: 120px;
+    left: auto;
+    right: 20px;
+    bottom: auto;
+    width: 240px;
+    height: auto;
+    position: fixed;
+    cursor: move;
+    z-index: 500;
+    /* Appearance */
+    background-color: white;
+    padding: 20px 20px 20px 20px;
+    cursor: move;
+    /* Fade out while not hovering */
+    opacity: 0.5;
+    zoom: 0.9;
+    transition: opacity 600ms .1s;
 }
 #controls:hover {
   /* Fade in while hovering */
-  opacity: 0.95;
+  opacity: 0.8;
   transition-delay: 0;
 }

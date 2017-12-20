@@ -1,20 +1,44 @@
 {% extends "layout.html" %}
 {% block body %}
 
+    <div id="controls">
+        <div class="form-group">
+            <label for="select_month"><br><h5>Select Month</h5></label>
+            <select class="form-control" id="select_month">
+                {% for mon in months %}
+                    {% if mon == selected %}
+                        <option value="/{{ mon }}" selected>{{ mon }}</option>
+                    {% else %}
+                        <option value="/{{ mon }}">{{ mon }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <br>
+            <button class="btn btn-outline-primary btn-sm" onclick="gotosite()">Submit</button>
+        </div>
+    </div>
     <div id="map_cn" style="height: 100%"></div>
+
 
     <script type="text/javascript">
 
-        var map = L.map('map_cn').setView([38.88, 114.47], 4);
-        var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        function gotosite() {
+            window.location = document.getElementById("select_month").value; // JQuery:  $("#menu").val();
+        }
+
+        var map = L.map('map_cn').setView([34.53, 108.92], 4);
+        var layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });
 
         {% for row in map_data %}
-            L.marker([{{ row.lat }}, {{ row.lng }}]).addTo(map).bindPopup("<strong>{{ row.city }}: {{ row.pm25|round|int }}</strong>").openPopup();
+            L.circleMarker([{{ row.lat }}, {{ row.lng }}], {radius: 5, color: "{{ row.color }}" }).addTo(map).
+            bindPopup("<strong>{{ row.city }}: {{ row.pm25|round|int }}<br>Category: {{ row.category }}</strong>");
         {% endfor %}
+
         map.addLayer(layer);
 
     </script>
+
 
 {% endblock %}
