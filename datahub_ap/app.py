@@ -31,4 +31,5 @@ def china_map_mon(month):
     return render_template('index.html', map_data=map_data, months=month_opt, selected=month)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=False)
+
