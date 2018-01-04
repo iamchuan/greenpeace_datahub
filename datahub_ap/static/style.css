@@ -7,6 +7,10 @@ html, body {
     height: 100%;
 }
 
+select {
+    width: 100px;
+}
+
 #controls {
     /* Position */
     top: 120px;
@@ -16,6 +20,7 @@ html, body {
     width: 240px;
     height: auto;
     position: fixed;
+    border-radius: 5px;
     cursor: move;
     z-index: 500;
     /* Appearance */

@@ -8,3 +8,4 @@ tables
 */__pycache__
 *.pyc
 *.log
+*.yml
