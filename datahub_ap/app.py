@@ -1,35 +1,65 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from utils import *
+from collections import OrderedDict
 
 app = Flask(__name__)
 
-data_path = './data/pm2p5_2013.csv'
-dw = DataWrangler(data_path)
-month_opt = {'January':1, 'February':2, 'March':3, 'April':4,
-             'May':5, 'June':6, 'July':7, 'August':8, 'September':9,
-             'October':10, 'November':11, 'December':12}
+year_opt = ('2013', '2014')
 
+month_opt = OrderedDict([('January', 1),
+                         ('February', 2),
+                         ('March', 3),
+                         ('April', 4),
+                         ('May', 5),
+                         ('June', 6),
+                         ('July', 7),
+                         ('August',8),
+                         ('September', 9),
+                         ('October', 10),
+                         ('November', 11),
+                         ('December', 12)])
+
+default_yr = 2014
 default_mo = 1
+
+with open('./config.yml', 'r') as f:
+    CONFIG = yaml.load(f)
+
+dw = DataWrangler(**CONFIG['mysql'])
 
 
 @app.route("/", methods=['GET'])
+def index():
+    return redirect("/map")
+
+
+@app.route("/map", methods=['GET'])
 def china_map():
-    map_data = dw.get_month_data(month=default_mo)\
+    # get year/month from WTForm
+    yr = request.args.get('year')
+    mo = request.args.get('month')
+    # get year/month values
+    if yr is None:
+        year = default_yr
+    else:
+        year = int(yr)
+    if mo is None:
+        month = default_mo
+    else:
+        month = month_opt[mo]
+    # retrieve map data
+    map_data = dw.get_month_data(year=year, month=month)\
         .add_col('category', value_to_category)\
         .add_col('color', category_to_color)\
-        .to_dict(cols=['city', 'lat', 'lng', 'pm25', 'category', 'color'])
-    print(map_data)
-    return render_template('index.html', map_data=map_data, months=month_opt)
+        .data
+    # render map page
+    return render_template('index.html',
+                           map_data=map_data,
+                           yr_selected=yr,
+                           mo_selected=mo,
+                           years=year_opt,
+                           months=month_opt)
 
-
-@app.route("/<string:month>", methods=['GET'])
-def china_map_mon(month):
-    map_data = dw.get_month_data(month=month_opt[month])\
-        .add_col('category', value_to_category)\
-        .add_col('color', category_to_color)\
-        .to_dict(cols=['city', 'lat', 'lng', 'pm25', 'category', 'color'])
-    return render_template('index.html', map_data=map_data, months=month_opt, selected=month)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False)
-
+    app.run(debug=True)

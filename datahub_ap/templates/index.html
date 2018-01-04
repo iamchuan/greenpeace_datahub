@@ -2,29 +2,40 @@
 {% block body %}
 
     <div id="controls">
-        <div class="form-group">
-            <label for="select_month"><br><h5>Select Month</h5></label>
-            <select class="form-control" id="select_month">
-                {% for mon in months %}
-                    {% if mon == selected %}
-                        <option value="/{{ mon }}" selected>{{ mon }}</option>
-                    {% else %}
-                        <option value="/{{ mon }}">{{ mon }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
+        <form action="/map">
+            <label for="select_year"><br><h5>Year: </h5></label>
+          <select id="select_year" name="year">
+            {% for yr in years %}
+              {% if yr == yr_selected %}
+                <option value="{{ yr }}" selected>{{ yr }}</option>
+              {% else %}
+                <option value="{{ yr }}">{{ yr }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
             <br>
-            <button class="btn btn-outline-primary btn-sm" onclick="gotosite()">Submit</button>
-        </div>
+            <label for="select_month"><br><h5>Month: </h5></label>
+            <select id="select_month" name="month">
+            {% for mon in months %}
+                {% if mon == mo_selected %}
+                    <option value="{{ mon }}" selected>{{ mon }}</option>
+                {% else %}
+                    <option value="{{ mon }}">{{ mon }}</option>
+                {% endif %}
+            {% endfor %}
+          </select>
+          <hr>
+          <input type="submit" class="btn btn-outline-primary btn-sm">
+        </form>
     </div>
-    <div id="map_cn" style="height: 100%"></div>
 
+    <div id="map_cn" style="height: 100%"></div>
 
     <script type="text/javascript">
 
-        function gotosite() {
-            window.location = document.getElementById("select_month").value; // JQuery:  $("#menu").val();
-        }
+        <!--function gotosite() {-->
+            <!--window.location = document.getElementById("select_month").value; // JQuery:  $("#menu").val();-->
+        <!--}-->
 
         var map = L.map('map_cn').setView([34.53, 108.92], 4);
         var layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,8 +43,8 @@
         });
 
         {% for row in map_data %}
-            L.circleMarker([{{ row.lat }}, {{ row.lng }}], {radius: 5, color: "{{ row.color }}" }).addTo(map).
-            bindPopup("<strong>{{ row.city }}: {{ row.pm25|round|int }}<br>Category: {{ row.category }}</strong>");
+            L.circleMarker([{{ row.lat }}, {{ row.lng }}], {radius: 5, color: "{{ row.color }}" , fillOpacity: 0.4}).addTo(map).
+            bindPopup("<strong>{{ row.area }}: {{ row.pm2_5|round|int }}<br>Category: {{ row.category }}</strong>");
         {% endfor %}
 
         map.addLayer(layer);
