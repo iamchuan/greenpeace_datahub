@@ -61,5 +61,19 @@ def china_map():
                            months=month_opt)
 
 
+@app.route("/explore")
+def explore():
+    return render_template('temp.html')
+
+
+@app.route("/analysis")
+def analysis():
+    return render_template('temp.html')
+
+
+@app.route("/about")
+def about():
+    return render_template('temp.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
