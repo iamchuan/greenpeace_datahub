@@ -19,7 +19,7 @@ month_opt = OrderedDict([('January', 1),
                          ('November', 11),
                          ('December', 12)])
 
-default_yr = 2014
+default_yr = 2013
 default_mo = 1
 
 with open('./config.yml', 'r') as f:
