@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="se-pre-con"></div>
+
+<div id="controls" class="draggable" style="font-size: 16px;">
+    <div>
+        <div style="margin: 0 0 16px 0;">
+            <label for="year_month">Year/Month:</label>
+            <div id="year_month">
+                <select id="select_year" name="year"></select>/
+                <select id="select_month" name="month"></select>
+            </div>
+        </div>
+
+        <button id="submit" class="btn btn-outline-primary btn-lg">Search</button>
+    </div>
+    <hr>
+    <div>
+        <!--<a id="download" href="#">Download as CSV</a>-->
+        <!--<br>-->
+        <a id="show_level" href="#">Show AQI Levels</a>
+    </div>
+    <div class="modal draggable" id="p_levels">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">AQI and Health Implications</h5>
+            <button id="hide_level" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <table class="table table-hover">
+              <thead>
+                <tr>
+                    {% for key in p_level['p_name']: %}
+                    <th scope="col">{{ key }}</th>
+                    {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in p_level['rows']: %}
+                <tr style="background-color:{{ row.col }}; colour: black; text-shadow: 1px 1px #ffffff;">
+                    {% for range in row.val %}
+                    <td>{{ range }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div id="mapid"></div>
+
+<script type=text/javascript src="{{url_for('static', filename='js/map.js') }}"></script>
+
+{% endblock %}

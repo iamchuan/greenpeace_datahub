@@ -9,3 +9,4 @@ tables
 *.pyc
 *.log
 *.yml
+!category.yml

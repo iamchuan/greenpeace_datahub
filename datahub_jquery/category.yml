@@ -1,0 +1,20 @@
+pollutant_names:
+  aqi: AQI
+  pm10_24h: PM10(24hr)
+  pm2_5_24h: PM2.5(24hr)
+  no2_24h: NO2(24hr)
+  o3_8h: O3(8hr)
+  co_24h: CO(24hr)
+  so2_24h: SO2(24hr)
+
+pollutant_levels:
+# levels are from the lightest to the most severe
+  AQI: [50, 100, 150, 200, 300]
+  PM10(24hr): [50, 150, 250, 350, 420]
+  PM2.5(24hr): [35, 75, 115, 150, 250]
+  NO2(24hr): [40, 80, 180, 280, 565]
+  O3(8hr): [100, 160, 215, 265, 800]
+  CO(24hr): [2, 4, 14, 24, 36]
+  SO2(24hr): [50, 150, 475, 800, 1600]
+
+level_colors: ['#0b40e7', '#11c300', '#ffe132', '#ff9936', '#ff1313', 'darkred']
