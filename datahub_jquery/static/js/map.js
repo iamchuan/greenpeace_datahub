@@ -1,6 +1,6 @@
 var $layersCtrl;
 var $map = L.map('mapid');
-var $year = ['2014', '2013'];
+var $year = ['2017', '2016', '2015', '2014', '2013'];
 
 $(function() {
 
@@ -27,6 +27,27 @@ $(function() {
     for (i = 1; i < 13; i++) {
         $('#select_month').append('<option value="' + i + '"> ' + (i).pad(2) + ' </option>');
     }
+
+
+// Get the options to be hidden/shown
+    var ary = [1, 2, 3, 4, 5, 6];
+
+    var $month_to_hide = $('select[name=month] option').filter(function () {
+        return ($.inArray(parseInt(this.value), ary) > -1);
+    });
+
+
+    $('#select_year').on('change', function () {
+        if ($('select[name="year"]').val() == 2016) {
+            if ($.inArray(parseInt($('select[name="month"]').val()), ary) > -1) {
+                $('select[name="month"]').val('7');
+            }
+            $month_to_hide.attr('disabled','disabled');
+        } else {
+            $month_to_hide.removeAttr('disabled');
+        }
+    })
+
 
     $('.draggable').draggable();
 
